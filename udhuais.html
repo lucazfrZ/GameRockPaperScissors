@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Piedra, Papel, Tijera</title>
+    <style>
+        .choice {
+            display: inline-block;
+            padding: 10px;
+            cursor: pointer;
+            border: 1px solid #ccc;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Piedra, Papel, Tijera</h1>
+
+    <div id="choices">
+        <div class="choice" onclick="playGame('rock')">Piedra</div>
+        <div class="choice" onclick="playGame('paper')">Papel</div>
+        <div class="choice" onclick="playGame('scissors')">Tijera</div>
+    </div>
+
+    <h2 id="result"></h2>
+
+    <h2>Marcador</h2>
+    <div id="score">
+        Jugador: <span id="playerScore">0</span> - 
+        Computadora: <span id="computerScore">0</span>
+    </div>
+
+    <script>
+        var playerScore = 0;
+        var computerScore = 0;
+
+        function playGame(userChoice) {
+            var choices = ["rock", "paper", "scissors"];
+            var computerChoice = choices[Math.floor(Math.random() * choices.length)];
+
+            var result = getResult(userChoice, computerChoice);
+
+            var resultText = "Elegiste " + userChoice + ", la computadora eligió " + computerChoice + ". ";
+
+            if (result === "win") {
+                resultText += "¡Ganaste!";
+                playerScore++;
+            } else if (result === "lose") {
+                resultText += "Perdiste :(";
+                computerScore++;
+            } else {
+                resultText += "Empate.";
+            }
+
+            document.getElementById("result").textContent = resultText;
+            document.getElementById("playerScore").textContent = playerScore;
+            document.getElementById("computerScore").textContent = computerScore;
+        }
+
+        function getResult(userChoice, computerChoice) {
+            if (userChoice === computerChoice) {
+                return "draw";
+            } else if (
+                (userChoice === "rock" && computerChoice === "scissors") ||
+                (userChoice === "paper" && computerChoice === "rock") ||
+                (userChoice === "scissors" && computerChoice === "paper")
+            ) {
+                return "win";
+            } else {
+                return "lose";
+            }
+        }
+    </script>
+</body>
+</html>
